@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="cust-container">
     <div class="toolbar">
       <Logo />
     </div>
@@ -7,16 +7,17 @@
       <div>
         <h1 class="title">Liste des tickets pour le vol {{ this.$route.params.code }}</h1>
         <div>
-          <div v-for="billet in billets" class="ticket">
-          passenger: {{ billet.passenger }}<br>
-          flight: {{ billet.flight }}<br>
-          from: {{ billet.from }}<br>
-          to: {{ billet.to }}<br>
-          class: {{ billet.class }}<br>
-          gate: {{ billet.gate }}<br>
-          time: {{ billet.time }}<br>
-          seat: {{ billet.seat }}<br>
-          number: {{ billet.number }}
+          <div v-for="billet in billets" class="ticket-list-item">
+            <NuxtLink :to="`/billets/view/${billet.from}`" :click="setBilletToWatch(billet)">Voir mon billet</NuxtLink><br>
+            passenger: {{ billet.passenger }}<br>
+            flight: {{ billet.flight }}<br>
+            from: {{ billet.from }}<br>
+            to: {{ billet.to }}<br>
+            class: {{ billet.class }}<br>
+            gate: {{ billet.gate }}<br>
+            time: {{ billet.time }}<br>
+            seat: {{ billet.seat }}<br>
+            number: {{ billet.number }}
           </div>
         </div>
       </div>
@@ -36,6 +37,7 @@ export default {
   methods: {
     ...mapActions({
       loadBilletsForDestination: "billet/loadBillets",
+      setBilletToWatch: "billet/setBilletToWatch",
     }),
   },
   mounted() {
@@ -45,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+.cust-container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -78,7 +80,7 @@ export default {
   text-align: center;
 }
 
-.ticket {
+.ticket-list-item {
   background-color: white;
   border: 1px solid cornflowerblue;
 }

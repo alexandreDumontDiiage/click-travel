@@ -9,5 +9,8 @@ export default {
       .catch(() => {
         state.commit('setBillets', []);
       });
+  },
+  setBilletToWatch(state, billet){
+    state.commit('setBilletToWatch', billet);
   }
 }

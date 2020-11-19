@@ -1,18 +1,18 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
+  <div class="cust-container">
     <div class="toolbar">
       <Logo />
     </div>
     <div class="content">
-      <div>
         <h1 class="title">Choose your dream destination...</h1>
         <div class="links">
           <a class="giant-button" v-for="destination in destinations" :key="destination.code">
             <NuxtLink :to="`/billets/${destination.code}`"> {{ destination.name }}</NuxtLink>
           </a>
         </div>
-      </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+.cust-container {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
