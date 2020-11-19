@@ -5,11 +5,19 @@
     </div>
     <div class="content">
       <div>
-        <h1 class="title">Choose your dream destination...</h1>
-        <div class="links">
-          <a class="giant-button" v-for="destination in destinations" :key="destination.code">
-            <NuxtLink :to="`/billets/${destination.code}`"> {{ destination.name }}</NuxtLink>
-          </a>
+        <h1 class="title">Liste des tickets pour le vol {{ this.$route.params.code }}</h1>
+        <div>
+          <div v-for="billet in billets" class="ticket">
+          passenger: {{ billet.passenger }}<br>
+          flight: {{ billet.flight }}<br>
+          from: {{ billet.from }}<br>
+          to: {{ billet.to }}<br>
+          class: {{ billet.class }}<br>
+          gate: {{ billet.gate }}<br>
+          time: {{ billet.time }}<br>
+          seat: {{ billet.seat }}<br>
+          number: {{ billet.number }}
+          </div>
         </div>
       </div>
     </div>
@@ -17,22 +25,21 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   computed: {
     ...mapGetters({
-      destinations: 'destination/getDreamDestinations'
-    })
+      billets: "billet/getBillets",
+    }),
   },
   methods: {
     ...mapActions({
-      loadDestinations: 'destination/loadDestinations'
-    })
+      loadBilletsForDestination: "billet/loadBillets",
+    }),
   },
   mounted() {
-    //Je fais un loadDestinations pour avoir la liste complète des dest
-    this.loadDestinations()
+    this.loadBilletsForDestination(this.$route.params.code);
   }
 }
 </script>
@@ -71,15 +78,8 @@ export default {
   text-align: center;
 }
 
-.links {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  padding-top: 15px;
-
-  & > * {
-    margin: 5px;
-  }
+.ticket {
+  background-color: white;
+  border: 1px solid cornflowerblue;
 }
 </style>
